@@ -1,8 +1,8 @@
 {
-  "name": "device-detector-js",
-  "version": "2.2.1",
+  "name": "@trafficguard/device-detector-js",
+  "version": "2.0.0",
   "description": "A javascript port of Matomo device-detector",
-  "homepage": "https://github.com/etienne-martin/device-detector-js",
+  "homepage": "https://github.com/TrafficGuard/device-detector-js",
   "keywords": [
     "user-agent",
     "parsing",
@@ -29,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/etienne-martin/device-detector-js"
+    "url": "https://github.com/TrafficGuard/device-detector-js"
   },
   "bugs": {
     "url": "https://github.com/etienne-martin/device-detector-js/issues"
