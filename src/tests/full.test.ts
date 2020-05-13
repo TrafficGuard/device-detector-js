@@ -1,7 +1,7 @@
 import DeviceDetector = require("../");
-import get from "lodash/get";
 import { formatVersion } from "../utils/version";
 import { brands } from "./helpers";
+import { BrowserResult } from "../parsers/client/browser";
 
 const tests: any = [
   ...require("../../fixtures/Tests/fixtures/camera.json"),
@@ -15,6 +15,7 @@ const tests: any = [
   ...require("../../fixtures/Tests/fixtures/phablet.json"),
   ...require("../../fixtures/Tests/fixtures/portable_media_player.json"),
   ...require("../../fixtures/Tests/fixtures/smart_display.json"),
+  ...require("../../fixtures/Tests/fixtures/smart_speaker.json"),
   ...require("../../fixtures/Tests/fixtures/smartphone.json"),
   ...require("../../fixtures/Tests/fixtures/smartphone-1.json"),
   ...require("../../fixtures/Tests/fixtures/smartphone-2.json"),
@@ -25,6 +26,10 @@ const tests: any = [
   ...require("../../fixtures/Tests/fixtures/smartphone-7.json"),
   ...require("../../fixtures/Tests/fixtures/smartphone-8.json"),
   ...require("../../fixtures/Tests/fixtures/smartphone-9.json"),
+  ...require("../../fixtures/Tests/fixtures/smartphone-10.json"),
+  ...require("../../fixtures/Tests/fixtures/smartphone-11.json"),
+  ...require("../../fixtures/Tests/fixtures/smartphone-12.json"),
+  ...require("../../fixtures/Tests/fixtures/smartphone-13.json"),
   ...require("../../fixtures/Tests/fixtures/tablet.json"),
   ...require("../../fixtures/Tests/fixtures/tablet-1.json"),
   ...require("../../fixtures/Tests/fixtures/tablet-2.json"),
@@ -44,27 +49,6 @@ describe("Full test", () => {
     test(`${unitTest.os.name || ""} ${brands[unitTest.device.brand] || ""} ${unitTest.client.name || ""}`, () => {
       const result = deviceDetector.parse(unitTest.user_agent);
 
-      const formattedResult = {
-        os: {
-          name: get(result, "os.name") || "",
-          version: get(result, "os.version") || "",
-          platform: get(result, "os.platform") || ""
-        },
-        client: {
-          type: get(result, "client.type") || "",
-          name: get(result, "client.name") || "",
-          version: get(result, "client.version") || "",
-          engine: get(result, "client.engine") || "",
-          engineVersion: get(result, "client.engineVersion") || ""
-        },
-        device: {
-          type: get(result, "device.type") || "",
-          brand: get(result, "device.brand") || "",
-          model: get(result, "device.model") || ""
-        },
-        userAgent: unitTest.user_agent
-      };
-
       const expectedClientType = (unitTest.client.type || "")
         .replace("pim", "personal information manager")
         .replace("mediaplayer", "media player");
@@ -79,7 +63,25 @@ describe("Full test", () => {
         unitTest.device.model = "";
       }
 
-      const formattedTest = {
+      expect({
+        os: {
+          name: result?.os?.name || "",
+          version: result?.os?.version || "",
+          platform: result?.os?.platform || ""
+        },
+        client: {
+          type: result?.client?.type || "",
+          name: result?.client?.name || "",
+          version: result?.client?.version || "",
+          engine: result?.client?.type === "browser" ? (result?.client as BrowserResult).engine : "",
+          engineVersion: result?.client?.type === "browser" ? (result?.client as BrowserResult).engineVersion : "",
+        },
+        device: {
+          type: result?.device?.type || "",
+          brand: result?.device?.brand || "",
+          model: result?.device?.model || ""
+        }
+      }).toEqual({
         os: {
           name: unitTest.os.name || "",
           version: formatVersion(unitTest.os.version, versionTruncation) || "",
@@ -96,11 +98,8 @@ describe("Full test", () => {
           type: expectedDeviceType,
           brand: brands[unitTest.device.brand] || "",
           model: unitTest.device.model || ""
-        },
-        userAgent: unitTest.user_agent
-      };
-
-      expect(formattedResult).toEqual(formattedTest);
+        }
+      });
     });
   }
 });

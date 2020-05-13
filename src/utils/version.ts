@@ -1,9 +1,9 @@
-import trim from "lodash/trim";
+import { trim } from "./trim";
 
 export const formatVersion = (version: string | undefined, versionTruncation: 0 | 1 | 2 | 3 | null): string => {
   if (version === undefined) return "";
 
-  const versionString = trim(version, ".").replace(new RegExp("_", "g"), ".");
+  const versionString = trim(version, ". ").replace(new RegExp("_", "g"), ".");
   const versionParts = versionString.split(".");
 
   // Return if the string is not only digits once we removed the dots
@@ -27,16 +27,12 @@ export const formatVersion = (version: string | undefined, versionTruncation: 0 
 };
 
 export const parseBrowserEngineVersion = (userAgent: string, engine: string) => {
-  if (!engine) {
-    return "";
-  }
+  if (!engine) return "";
 
   const regex = new RegExp(`${engine}\\s*\\/?\\s*((?:(?=\\d+\\.\\d)\\d+[.\\d]*|\\d{1,7}(?=(?:\\D|$))))`, "i");
   const match = userAgent.match(regex);
 
-  if (!match) {
-    return "";
-  }
+  if (!match) return "";
 
   return match.pop();
 };

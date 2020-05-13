@@ -48,6 +48,9 @@ export default class MobileParser {
     if (result.type === "tv") {
       result.type = result.type.replace("tv", "television");
     }
+    else if (result.type === "car browser") {
+      result.type = result.type.replace("car browser", "car");
+    }
 
     // Sanitize device brand
     if (result.brand === "Unknown") {
