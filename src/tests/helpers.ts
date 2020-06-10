@@ -600,5 +600,9 @@ export const brands: { [key: string]: string; } = {
   "OE":"Oukitel",
   "RZ":"Razer",
   "NS":"NewsMy",
-  "G4":"Globex"
+  "G4":"Globex",
+  "N8": "NEXON",
+  "O4": "ONN",
+  "QB": "Q.Bell",
+  "RE": "Realme",
 };
