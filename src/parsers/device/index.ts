@@ -1,3 +1,4 @@
+import NotebookParser from "./notebooks";
 import CameraParser from "./cameras";
 import MobileParser from "./mobiles";
 import TelevisionParser from "./televisions";
@@ -9,6 +10,7 @@ import { GenericDeviceResult } from "../../typings/device";
 export type DeviceResult = GenericDeviceResult | null;
 
 const deviceParsers = [
+  NotebookParser,
   ConsoleParser,
   CarParser,
   CameraParser,

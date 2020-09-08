@@ -60,6 +60,16 @@ export interface PortableMediaPlayer {
   }>
 }
 
+export interface Notebooks {
+  regex: string;
+  device: string;
+  model?: string;
+  models?: Array<{
+    regex: string;
+    model: string;
+  }>
+}
+
 export interface Cameras { [brand: string]: Camera; }
 export interface Mobiles { [brand: string]: Mobile; }
 export interface Televisions { [brand: string]: Television; }
