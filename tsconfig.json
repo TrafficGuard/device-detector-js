@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "module": "commonjs",
     "target": "es2017",
     "strict": true,
@@ -7,6 +8,7 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "outDir": "./dist",
+    "resolveJsonModule": true,
     "lib": [
       "dom",
       "es2017"
